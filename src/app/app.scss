@@ -1,0 +1,5 @@
+.main-content {
+  margin-left: var(--sidebar-width);
+  transition: margin-left var(--sidebar-transition);
+  padding: 1px 16px; 
+}

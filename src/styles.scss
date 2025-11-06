@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+html{
+    background-color: #0C283B;
+}
+
+p{
+    color: bisque;
+}
+body{
+    margin-left: 0px !important;
+    margin-top: 0px !important;
+}
+
+
+:root {
+  /* 1. Define the initial (collapsed) width and transition speed */
+  --sidebar-width: 70px;
+  --sidebar-transition: 0.3s ease;
+}

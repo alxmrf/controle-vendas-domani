@@ -1,0 +1,42 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  
+  /* Use the variables here */
+  width: var(--sidebar-width);
+  transition: width var(--sidebar-transition);
+}
+ul:hover {
+  --sidebar-width: 200px; /* Or whatever expanded width you want */
+}
+li a {
+  display: block;
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+li a:hover:not(.active) {
+  background-color: #555555;
+  color: white;
+}
+
+
+.options{
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+ul:hover .options{
+    opacity: 1;
+}
+

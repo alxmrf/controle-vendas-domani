@@ -1,0 +1,11 @@
+.consultorBox-container {
+  width: 100px;
+  height: 100px;
+  background-color: black;
+  transition: height 0.3s ease, width 0.3s ease;
+}
+
+.consultorBox-container:hover {
+  width: 150px;
+  height: 150px;
+}
