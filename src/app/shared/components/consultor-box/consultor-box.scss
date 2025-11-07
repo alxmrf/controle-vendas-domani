@@ -1,11 +1,16 @@
-.consultorBox-container {
+.consultorBox-container-size {
   width: 100px;
   height: 100px;
+}
+
+.consultorBox-container {
+  width: 150px;
+  height: 150px;
   background-color: black;
-  transition: height 0.3s ease, width 0.3s ease;
+  transition: height 0.5s ease, width 0.3s ease;
 }
 
 .consultorBox-container:hover {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
 }

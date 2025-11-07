@@ -1,3 +1,9 @@
-<div class="consultorBox-container" >
-    <p>ola</p>
+<div class="consultorBox-container" [ngStyle]="isExpanded ? expandedSize : {}" (click)="setExpanded()">
+    @if (isExpanded) {
+        <h2 style="color: bisque;">{{consultor.nome}}</h2>
+        <p style="color: bisque;">{{consultor.cargo}}</p>
+    }
+     @else {
+        <h3 style="color: bisque;">{{consultor.nome}}</h3>
+     }
 </div>
