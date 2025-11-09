@@ -1,9 +1,113 @@
-<div class="consultorBox-container" [ngStyle]="isExpanded ? expandedSize : {}" (click)="setExpanded()">
-    @if (isExpanded) {
-        <h2 style="color: bisque;">{{consultor.nome}}</h2>
-        <p style="color: bisque;">{{consultor.cargo}}</p>
+<div
+  class="consultorBox-container"
+  [ngStyle]="isExpanded ? expandedSize : {}"
+  (click)="toggleIsExpanded()"
+>
+  @if (!isExpanded) {
+  <h2>{{ consultor.nome | titlecase }}</h2>
+  <p>{{ consultor.username }}</p>
+  } @else {
+
+  <div style="display: flex; align-items: center; justify-content: space-between">
+    <div>
+      <h1 style="font-size: 40px; margin-bottom: 5px">{{ consultor.nome | titlecase }}</h1>
+      <p>{{ consultor.username }}</p>
+    </div>
+    <div style="align-items: center">
+      <p>cargo: {{ consultor.cargo }}</p>
+    </div>
+  </div>
+
+  <div>
+    <div style="gap: 10px; display: flex; margin-top: 10px">
+      <button (click)="handleDemandasShowing(true)" class="bt-p">
+        <div style="display: flex; gap: 5px; align-items: center">
+          <div>
+            <p>Leads</p>
+          </div>
+          <div
+            style="
+              background-color: #ca9a3a;
+              height: 35px;
+              align-items: center;
+              display: flex;
+              padding: 2px;
+              border-radius: 5px;
+            "
+          >
+            <img src="assets/icons/task.svg" alt="" />
+          </div>
+        </div>
+      </button>
+      <button (click)="handleDemandasShowing(false)" class="bt-p">
+        <div style="display: flex; gap: 5px; align-items: center">
+          <div>
+            <p>Leads</p>
+          </div>
+          <div
+            style="
+              background-color: #ca9a3a;
+              height: 35px;
+              align-items: center;
+              display: flex;
+              padding: 2px;
+              border-radius: 5px;
+            "
+          >
+            <img src="assets/icons/lead.svg" alt="" />
+          </div>
+        </div>
+      </button>
+    </div>
+    @if(demandasShowing) {
+
+    <table
+      mat-table
+      [dataSource]="consultor.demandas"
+      class="mat-elevation-z8"
+      style="width: 100%; margin-top: 10px"
+    >
+      <!-- Nome Column -->
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let element">{{ element.descricao }}</td>
+      </ng-container>
+
+      <!-- Estagio Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>status</th>
+        <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['nome', 'status']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['nome', 'status']"></tr>
+    </table>
+    <button>Adicionar Demanda</button>
+    } @else {
+    <table
+      mat-table
+      [dataSource]="consultor.demandas"
+      class="mat-elevation-z8"
+      style="width: 100%; margin-top: 10px"
+    >
+      <!-- Nome Column -->
+      <ng-container matColumnDef="Lead">
+        <th mat-header-cell *matHeaderCellDef>Lead</th>
+        <td mat-cell *matCellDef="let element">{{ element.descricao }}</td>
+      </ng-container>
+
+      <!-- Estagio Column -->
+      <ng-container matColumnDef="Nome Lead">
+        <th mat-header-cell *matHeaderCellDef>Nome do lead</th>
+        <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['Lead', 'Nome Lead']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['Lead', 'Nome Lead']"></tr>
+    </table>
+    <button>Adicionar Lead</button>
     }
-     @else {
-        <h3 style="color: bisque;">{{consultor.nome}}</h3>
-     }
+  </div>
+
+  }
 </div>

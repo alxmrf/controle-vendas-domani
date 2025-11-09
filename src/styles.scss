@@ -1,18 +1,45 @@
-html{
-    background-color: #0C283B;
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+  background-color: #0c283b;
 }
 
-p{
-    color: bisque;
-}
-body{
-    margin-left: 0px !important;
-    margin-top: 0px !important;
+html p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+th,
+tr,
+td {
+  font-family: 'stacked-sans', sans-serif;
+  color: bisque;
 }
 
+body {
+  margin-left: 0px !important;
+  margin-top: 0px !important;
+}
 
 :root {
   /* 1. Define the initial (collapsed) width and transition speed */
   --sidebar-width: 70px;
   --sidebar-transition: 0.3s ease;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
