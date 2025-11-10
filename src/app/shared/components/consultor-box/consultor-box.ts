@@ -11,6 +11,9 @@ import { MatTableModule } from '@angular/material/table';
   styleUrl: './consultor-box.scss',
 })
 export class ConsultorBox {
+acaoAdicionarLead() {
+throw new Error('Method not implemented.');
+}
   @Input() consultor!: Consultor;
   isExpanded: boolean = false;
   clickCounter!: { click: number; time: Date };

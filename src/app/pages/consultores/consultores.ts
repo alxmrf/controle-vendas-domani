@@ -11,6 +11,9 @@ import { ConsultorService } from '../../shared/services/consultorService';
   styleUrl: './consultores.scss',
 })
 export class Consultores {
+addConsultor() {
+throw new Error('Method not implemented.');
+}
   constructor(private service: ConsultorService) {}
   consultores: Consultor[] = [];
 

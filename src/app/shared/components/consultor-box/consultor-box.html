@@ -23,7 +23,7 @@
       <button (click)="handleDemandasShowing(true)" class="bt-p">
         <div style="display: flex; gap: 5px; align-items: center">
           <div>
-            <p>Leads</p>
+            <p>Demandas</p>
           </div>
           <div
             style="
@@ -82,11 +82,29 @@
       <tr mat-header-row *matHeaderRowDef="['nome', 'status']"></tr>
       <tr mat-row *matRowDef="let row; columns: ['nome', 'status']"></tr>
     </table>
-    <button>Adicionar Demanda</button>
+    <button (click)="acaoAdicionarLead()" class="bt-p">
+      <div style="display: flex; gap: 5px; align-items: center">
+        <div>
+          <p>Adicionar Lead</p>
+        </div>
+        <div
+          style="
+            background-color: #ca9a3a;
+            height: 35px;
+            align-items: center;
+            display: flex;
+            padding: 2px;
+            border-radius: 5px;
+          "
+        >
+          <img src="assets/icons/plus.svg" alt="" />
+        </div>
+      </div>
+    </button>
     } @else {
     <table
       mat-table
-      [dataSource]="consultor.demandas"
+      [dataSource]="consultor.leads"
       class="mat-elevation-z8"
       style="width: 100%; margin-top: 10px"
     >
@@ -105,7 +123,25 @@
       <tr mat-header-row *matHeaderRowDef="['Lead', 'Nome Lead']"></tr>
       <tr mat-row *matRowDef="let row; columns: ['Lead', 'Nome Lead']"></tr>
     </table>
-    <button>Adicionar Lead</button>
+    <button (click)="acaoAdicionarLead()" class="bt-p">
+      <div style="display: flex; gap: 5px; align-items: center">
+        <div>
+          <p>Adicionar Lead</p>
+        </div>
+        <div
+          style="
+            background-color: #ca9a3a;
+            height: 35px;
+            align-items: center;
+            display: flex;
+            padding: 2px;
+            border-radius: 5px;
+          "
+        >
+          <img src="assets/icons/plus.svg" alt="" />
+        </div>
+      </div>
+    </button>
     }
   </div>
 
