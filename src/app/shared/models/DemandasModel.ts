@@ -9,3 +9,9 @@ export interface Demandas {
 
   dono: Consultor;
 }
+
+export interface DemandasOutputDTO {
+  descricao: string;
+  status: string;
+  usernameDono: string;
+}

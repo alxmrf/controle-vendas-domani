@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Consultor } from '../../models/ConsultorModel';
 import { CommonModule, NgStyle } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
+import { DemandasOutputDTO } from '../../models/DemandasModel';
+import { DemandaService } from '../../services/demanda-service';
 
 @Component({
   selector: 'app-consultor-box',
@@ -11,13 +13,16 @@ import { MatTableModule } from '@angular/material/table';
   styleUrl: './consultor-box.scss',
 })
 export class ConsultorBox {
-acaoAdicionarLead() {
-throw new Error('Method not implemented.');
-}
+  acaoAdicionarLead() {
+    throw new Error('Method not implemented.');
+  }
   @Input() consultor!: Consultor;
   isExpanded: boolean = false;
   clickCounter!: { click: number; time: Date };
   demandasShowing: boolean = true;
+
+  constructor(private demandaService: DemandaService) {}
+
   ngOnInit() {
     this.clickCounter = { click: 0, time: new Date() };
   }
@@ -49,5 +54,21 @@ throw new Error('Method not implemented.');
 
   handleDemandasShowing(status: boolean) {
     this.demandasShowing = status;
+  }
+
+  addTask() {
+    let newTask: DemandasOutputDTO = {
+      descricao: 'Nova Demanda',
+      status: 'Pendente',
+      usernameDono: this.consultor.username,
+    };
+    console.log(this.consultor.username);
+    this.demandaService.addDemanda(newTask).subscribe({
+      next: (data) => {
+        console.log('Demanda adicionada:', data);
+        // Recarrega a lista de demandas após adicionar
+      },
+      error: (error) => console.error('Erro ao adicionar demanda:', error),
+    });
   }
 }

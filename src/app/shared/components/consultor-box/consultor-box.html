@@ -82,10 +82,10 @@
       <tr mat-header-row *matHeaderRowDef="['nome', 'status']"></tr>
       <tr mat-row *matRowDef="let row; columns: ['nome', 'status']"></tr>
     </table>
-    <button (click)="acaoAdicionarLead()" class="bt-p">
+    <button (click)="addTask()" class="bt-p">
       <div style="display: flex; gap: 5px; align-items: center">
         <div>
-          <p>Adicionar Lead</p>
+          <p>Adicionar Demanda</p>
         </div>
         <div
           style="

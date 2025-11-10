@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ConsultorBox } from '../../shared/components/consultor-box/consultor-box';
 import { CommonModule } from '@angular/common';
-import { Consultor } from '../../shared/models/ConsultorModel';
+import { Consultor, ConsultorOutputDTO } from '../../shared/models/ConsultorModel';
 import { ConsultorService } from '../../shared/services/consultorService';
 
 @Component({
@@ -11,9 +11,6 @@ import { ConsultorService } from '../../shared/services/consultorService';
   styleUrl: './consultores.scss',
 })
 export class Consultores {
-addConsultor() {
-throw new Error('Method not implemented.');
-}
   constructor(private service: ConsultorService) {}
   consultores: Consultor[] = [];
 
@@ -29,6 +26,24 @@ throw new Error('Method not implemented.');
         this.consultores = data;
       },
       error: (error) => console.error(error),
+    });
+  }
+
+  addConsultor() {
+    let newConsultor: ConsultorOutputDTO = {
+      nome: 'Novo Consultor',
+      cargo: 'Cargo Exemplo',
+      area: 'Area Exemplo',
+      username: 'novo.consultor'
+    };
+
+
+    this.service.addConsultor(newConsultor).subscribe({
+      next: (data) => {
+        console.log('Consultor adicionado:', data);
+        this.acaoConsultar(); // Recarrega a lista de consultores após adicionar
+      },
+      error: (error) => console.error('Erro ao adicionar consultor:', error),
     });
   }
 }
