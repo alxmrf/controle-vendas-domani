@@ -3,6 +3,9 @@ import { ConsultorBox } from '../../shared/components/consultor-box/consultor-bo
 import { CommonModule } from '@angular/common';
 import { Consultor, ConsultorOutputDTO } from '../../shared/models/ConsultorModel';
 import { ConsultorService } from '../../shared/services/consultorService';
+import { ModalAdicionarConsultor } from './modal-adicionar-consultor/modal-adicionar-consultor/modal-adicionar-consultor';
+import { ModalService } from '../../shared/util/modal-service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-consultores',
@@ -11,7 +14,7 @@ import { ConsultorService } from '../../shared/services/consultorService';
   styleUrl: './consultores.scss',
 })
 export class Consultores {
-  constructor(private service: ConsultorService) {}
+  constructor(private service: ConsultorService, private modalService: NgbModal) {}
   consultores: Consultor[] = [];
 
   ngOnInit() {
@@ -30,20 +33,25 @@ export class Consultores {
   }
 
   addConsultor() {
-    let newConsultor: ConsultorOutputDTO = {
-      nome: 'Novo Consultor',
-      cargo: 'Cargo Exemplo',
-      area: 'Area Exemplo',
-      username: 'novo.consultor'
-    };
+    this.modalService
+      .open(ModalAdicionarConsultor, {
+        backdrop: 'static', // Changed to 'static' to "stand out"
+        keyboard: true,
+        size: 'lg',
 
-
-    this.service.addConsultor(newConsultor).subscribe({
-      next: (data) => {
-        console.log('Consultor adicionado:', data);
-        this.acaoConsultar(); // Recarrega a lista de consultores após adicionar
-      },
-      error: (error) => console.error('Erro ao adicionar consultor:', error),
-    });
+        // The new styling options
+        centered: true,
+      })
+      .result.then((result: ConsultorOutputDTO) => {
+        this.service.addConsultor(result).subscribe({ 
+          next: (data) => {
+            console.log('Consultor adicionado:', data);
+            this.acaoConsultar(); // Recarrega a lista de consultores após adicionar
+          },
+          error: (error) => console.error('Erro ao adicionar consultor:', error),
+        });
+      });
   }
+
+  
 }

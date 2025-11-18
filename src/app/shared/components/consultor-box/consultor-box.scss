@@ -1,10 +1,6 @@
-.consultorBox-container-size {
-  width: 100px;
-  height: 100px;
-}
-
 .consultorBox-container {
   width: 150px;
+  text-overflow: hidden;
   height: 150px;
   border: black solid 2px;
   border-radius: 10px;

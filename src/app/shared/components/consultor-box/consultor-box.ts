@@ -4,6 +4,10 @@ import { CommonModule, NgStyle } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { DemandasOutputDTO } from '../../models/DemandasModel';
 import { DemandaService } from '../../services/demanda-service';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalAdicionarDemanda } from '../../../pages/consultores/modal-adicionar-demanda/modal-adicionar-demanda';
+import { ModalCancelar } from '../../../pages/consultores/modal-cancelar/modal-cancelar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-consultor-box',
@@ -21,7 +25,11 @@ export class ConsultorBox {
   clickCounter!: { click: number; time: Date };
   demandasShowing: boolean = true;
 
-  constructor(private demandaService: DemandaService) {}
+  constructor(
+    private demandaService: DemandaService,
+    private modalService: NgbModal,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.clickCounter = { click: 0, time: new Date() };
@@ -57,19 +65,46 @@ export class ConsultorBox {
   }
 
   addTask() {
-    let newTask: DemandasOutputDTO = {
-      descricao: 'Nova Demanda',
-      status: 'Pendente',
+    let modalRef = this.modalService.open(ModalAdicionarDemanda, { size: 'lg' });
+
+    modalRef.result.then((result) => {
+      let newTask: DemandasOutputDTO = {
+        descricao: result.descricao,
+        status: result.status,
+        usernameDono: this.consultor.username,
+      };
+      this.demandaService.addDemanda(newTask).subscribe({
+        next: (data) => {
+          this.reloadComponent();
+          // Recarrega a lista de demandas após adicionar
+        },
+        error: (error) => console.error('Erro ao adicionar demanda:', error),
+      });
+    });
+  }
+  acaoDeletar(element: any) {
+    console.log(element);
+  }
+
+  acaoDeletarDemanda(element: any) {
+    let taskToDelete: DemandasOutputDTO = {
+      descricao: element.descricao,
+      status: element.status,
       usernameDono: this.consultor.username,
     };
-    console.log(this.consultor.username);
-    this.demandaService.addDemanda(newTask).subscribe({
-      next: (data) => {
-        console.log('Demanda adicionada:', data);
-        // Recarrega a lista de demandas após adicionar
-      },
-      error: (error) => console.error('Erro ao adicionar demanda:', error),
+    let modalRef = this.modalService.open(ModalCancelar, { size: 'lg' });
+
+    modalRef.result.then(() => {
+      this.demandaService.deleteDemanda(taskToDelete).subscribe(() => {
+        this.reloadComponent();
+      });
+      this.reloadComponent();
+    });
+  }
+  reloadComponent() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
     });
   }
 }
-  

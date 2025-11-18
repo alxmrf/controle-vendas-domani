@@ -2,10 +2,11 @@
   class="consultorBox-container"
   [ngStyle]="isExpanded ? expandedSize : {}"
   (click)="toggleIsExpanded()"
+  style="padding-top: 10px"
 >
   @if (!isExpanded) {
-  <h2>{{ consultor.nome | titlecase }}</h2>
-  <p>{{ consultor.username }}</p>
+  <h3 style="overflow: hidden; font-size: larger">{{ consultor.nome | titlecase }}</h3>
+  <p style="font-size: small">{{ consultor.username }}</p>
   } @else {
 
   <div style="display: flex; align-items: center; justify-content: space-between">
@@ -60,29 +61,46 @@
       </button>
     </div>
     @if(demandasShowing) {
+    <div style="width: 100%; max-height: 200px; overflow-y: scroll">
+      <table
+        mat-table
+        [dataSource]="consultor.demandas"
+        class="mat-elevation-z8"
+        style="width: 100%; margin-top: 10px"
+      >
+        <!-- Nome Column -->
+        <ng-container matColumnDef="nome">
+          <th mat-header-cell *matHeaderCellDef>Nome</th>
+          <td mat-cell *matCellDef="let element">{{ element.descricao }}</td>
+        </ng-container>
 
-    <table
-      mat-table
-      [dataSource]="consultor.demandas"
-      class="mat-elevation-z8"
-      style="width: 100%; margin-top: 10px"
-    >
-      <!-- Nome Column -->
-      <ng-container matColumnDef="nome">
-        <th mat-header-cell *matHeaderCellDef>Nome</th>
-        <td mat-cell *matCellDef="let element">{{ element.descricao }}</td>
-      </ng-container>
+        <!-- Estagio Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>status</th>
+          <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+        </ng-container>
 
-      <!-- Estagio Column -->
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>status</th>
-        <td mat-cell *matCellDef="let element">{{ element.status }}</td>
-      </ng-container>
+        <ng-container matColumnDef="Acoes">
+          <th mat-header-cell *matHeaderCellDef>Ações</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              (click)="acaoDeletarDemanda(element)"
+              style="background-color: transparent; border: transparent"
+            >
+              <img src="assets/icons/cancel.svg" alt="" />
+            </button>
+          </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="['nome', 'status']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['nome', 'status']"></tr>
-    </table>
-    <button (click)="addTask()" class="bt-p">
+        <tr
+          mat-header-row
+          *matHeaderRowDef="['nome', 'status', 'Acoes']; sticky: true"
+          style="background-color: #017670"
+        ></tr>
+        <tr mat-row *matRowDef="let row; columns: ['nome', 'status', 'Acoes']"></tr>
+      </table>
+    </div>
+    <button (click)="addTask()" class="bt-p" style="margin-top: 30px">
       <div style="display: flex; gap: 5px; align-items: center">
         <div>
           <p>Adicionar Demanda</p>
@@ -119,11 +137,22 @@
         <th mat-header-cell *matHeaderCellDef>Nome do lead</th>
         <td mat-cell *matCellDef="let element">{{ element.status }}</td>
       </ng-container>
+      <ng-container matColumnDef="Acoes">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            (click)="acaoDeletar(element)"
+            style="background-color: transparent; border: transparent"
+          >
+            <img src="assets/icons/cancel.svg" alt="" />
+          </button>
+        </td>
+      </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="['Lead', 'Nome Lead']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['Lead', 'Nome Lead']"></tr>
+      <tr mat-header-row *matHeaderRowDef="['Lead', 'Nome Lead', 'Acoes']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['Lead', 'Nome Lead', 'Acoes']"></tr>
     </table>
-    <button (click)="acaoAdicionarLead()" class="bt-p">
+    <button (click)="acaoAdicionarLead()" class="bt-p" style="margin-top: 30px">
       <div style="display: flex; gap: 5px; align-items: center">
         <div>
           <p>Adicionar Lead</p>

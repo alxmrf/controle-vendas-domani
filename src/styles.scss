@@ -1,13 +1,6 @@
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
-@use '@angular/material' as mat;
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
 
-html {
-  background-color: #0c283b;
-}
 
 html p,
 h1,
@@ -26,6 +19,7 @@ td {
 
 body {
   margin-left: 0px !important;
+   background-color: #0c283b !important;
   margin-top: 0px !important;
 }
 
@@ -73,3 +67,4 @@ body {
   background-color: gray;
   color: black;
 }
+

@@ -16,4 +16,8 @@ export class DemandaService {
   addDemanda(demanda: DemandasOutputDTO) {
     return this.httpClient.post<Consultor>(`${backend_url}/demanda/nova-demanda`, demanda);
   }
+
+  deleteDemanda(demanda: DemandasOutputDTO) {
+    return this.httpClient.post<Consultor>(`${backend_url}/demanda/delete-demanda`, demanda);
+  }
 }
